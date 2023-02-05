@@ -1,4 +1,24 @@
 import math
+import itertools
+
+
+
+
+def circulo (X):
+    x = [float(x) for x in X.split()]
+    ncirculos = int(x[0])
+
+    def permutacoes_primeira_posicao(vetor):
+        resultado = []
+        for permutacao in itertools.permutations(vetor[1:]):
+            resultado.append((vetor[ncirculos],) + permutacao)
+        return resultado
+    i = 1
+    total = x[1] + x[ncirculos]
+    base = 0
+    baseant = 0
+    maior = 0
+
 
 def circulo (X):
     x = [float(x) for x in X.split()]
@@ -31,6 +51,7 @@ def circulo (X):
     while ncirculos > 0:
         if i >= ncirculos:
             break
+
         circulo1 = x[i]
         circulo2 = x[i+1]
 
@@ -49,9 +70,7 @@ def circulo (X):
             apos = alturapos*alturapos
             baseant = base
             base = math.sqrt(hpos - apos)
-            print(base)
-            print(baseant)
-            print(circulo3 + circulo1)
+
             if (circulo3 + circulo1) > (base + baseant):
                 hipotenusa = (circulo3 + circulo1)
                 altura = abs(circulo3 - circulo1)
@@ -65,7 +84,7 @@ def circulo (X):
         i += 1
 
     return total
-    
+
 n = input()
 n = int(n)
 
@@ -74,9 +93,9 @@ def main():
         try:
             X = input()
             result = circulo(X)
-            print('\n')
+
             print("{:.3f}".format(result))
-            print('\n\n\n')
+
         except EOFError:
             break
 main()
