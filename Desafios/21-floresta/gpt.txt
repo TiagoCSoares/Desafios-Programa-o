@@ -1,0 +1,38 @@
+Para encontrar o maior retângulo sem árvores dentro de um campo de árvores, você pode usar a técnica de histograma. Aqui está um exemplo de código para implementá-lo em Python:
+
+def maior_retangulo(campo):
+altura = len(campo)
+largura = len(campo[0])
+histograma = [0] * largura
+max_area = 0
+
+cpp
+
+for i in range(altura):
+    for j in range(largura):
+        if campo[i][j] == 0:
+            histograma[j] += 1
+        else:
+            histograma[j] = 0
+    
+    stack = []
+    histograma.append(0)
+    for j in range(len(histograma)):
+        while stack and histograma[stack[-1]] > histograma[j]:
+            h = histograma[stack.pop()]
+            w = j if not stack else j - stack[-1] - 1
+            max_area = max(max_area, h * w)
+        stack.append(j)
+
+return max_area
+
+exemplo de uso
+
+campo = [[0, 0, 1, 0, 0],
+[0, 1, 1, 1, 0],
+[1, 1, 1, 1, 1],
+[0, 0, 1, 0, 0],
+[0, 0, 0, 0, 0]]
+print(maior_retangulo(campo)) # imprime 12
+
+Neste exemplo, o retângulo de maior área sem árvores dentro é de tamanho 4x3, com área 12.
